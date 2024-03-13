@@ -9,21 +9,25 @@
 /* Begin PBXBuildFile section */
 		DE32EB022BA1BCF10010A3F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE32EB012BA1BCF10010A3F0 /* AppDelegate.swift */; };
 		DE32EB042BA1BCF10010A3F0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE32EB032BA1BCF10010A3F0 /* SceneDelegate.swift */; };
-		DE32EB062BA1BCF10010A3F0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE32EB052BA1BCF10010A3F0 /* ViewController.swift */; };
+		DE32EB062BA1BCF10010A3F0 /* JROpportunitiesListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE32EB052BA1BCF10010A3F0 /* JROpportunitiesListVC.swift */; };
 		DE32EB0C2BA1BCF10010A3F0 /* JollyRoger.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DE32EB0A2BA1BCF10010A3F0 /* JollyRoger.xcdatamodeld */; };
 		DE32EB0E2BA1BCF20010A3F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE32EB0D2BA1BCF20010A3F0 /* Assets.xcassets */; };
 		DE32EB112BA1BCF20010A3F0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE32EB0F2BA1BCF20010A3F0 /* LaunchScreen.storyboard */; };
+		DE32EB192BA1C2400010A3F0 /* JRCoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE32EB182BA1C2400010A3F0 /* JRCoreDataService.swift */; };
+		DE32EB1B2BA1C2AB0010A3F0 /* NSManagedObjectContext+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE32EB1A2BA1C2AB0010A3F0 /* NSManagedObjectContext+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		DE32EAFE2BA1BCF10010A3F0 /* JollyRoger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JollyRoger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE32EB012BA1BCF10010A3F0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DE32EB032BA1BCF10010A3F0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		DE32EB052BA1BCF10010A3F0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		DE32EB052BA1BCF10010A3F0 /* JROpportunitiesListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JROpportunitiesListVC.swift; sourceTree = "<group>"; };
 		DE32EB0B2BA1BCF10010A3F0 /* JollyRoger.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = JollyRoger.xcdatamodel; sourceTree = "<group>"; };
 		DE32EB0D2BA1BCF20010A3F0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DE32EB102BA1BCF20010A3F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DE32EB122BA1BCF20010A3F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DE32EB182BA1C2400010A3F0 /* JRCoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JRCoreDataService.swift; sourceTree = "<group>"; };
+		DE32EB1A2BA1C2AB0010A3F0 /* NSManagedObjectContext+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,9 +60,11 @@
 		DE32EB002BA1BCF10010A3F0 /* JollyRoger */ = {
 			isa = PBXGroup;
 			children = (
+				DE32EB182BA1C2400010A3F0 /* JRCoreDataService.swift */,
+				DE32EB1A2BA1C2AB0010A3F0 /* NSManagedObjectContext+Extension.swift */,
 				DE32EB012BA1BCF10010A3F0 /* AppDelegate.swift */,
 				DE32EB032BA1BCF10010A3F0 /* SceneDelegate.swift */,
-				DE32EB052BA1BCF10010A3F0 /* ViewController.swift */,
+				DE32EB052BA1BCF10010A3F0 /* JROpportunitiesListVC.swift */,
 				DE32EB0D2BA1BCF20010A3F0 /* Assets.xcassets */,
 				DE32EB0F2BA1BCF20010A3F0 /* LaunchScreen.storyboard */,
 				DE32EB122BA1BCF20010A3F0 /* Info.plist */,
@@ -138,7 +144,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE32EB0C2BA1BCF10010A3F0 /* JollyRoger.xcdatamodeld in Sources */,
-				DE32EB062BA1BCF10010A3F0 /* ViewController.swift in Sources */,
+				DE32EB1B2BA1C2AB0010A3F0 /* NSManagedObjectContext+Extension.swift in Sources */,
+				DE32EB192BA1C2400010A3F0 /* JRCoreDataService.swift in Sources */,
+				DE32EB062BA1BCF10010A3F0 /* JROpportunitiesListVC.swift in Sources */,
 				DE32EB022BA1BCF10010A3F0 /* AppDelegate.swift in Sources */,
 				DE32EB042BA1BCF10010A3F0 /* SceneDelegate.swift in Sources */,
 			);

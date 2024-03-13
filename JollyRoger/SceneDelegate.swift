@@ -16,9 +16,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
         
-//        let viewController = DJDreamsJournalVC()
-//        viewController.dreamsService = DJDreamsService((UIApplication.shared.delegate as? AppDelegate)?.coreDataService)
-        let navvc = UINavigationController(rootViewController: ViewController())
+        let viewController = JROpportunitiesListVC(coreDataService: (UIApplication.shared.delegate as? AppDelegate)?.coreDataService)
+        let navvc = UINavigationController(rootViewController: viewController)
         
         window = UIWindow(frame: windowsScene.coordinateSpace.bounds)
         window?.backgroundColor = .white
@@ -33,7 +32,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
 
         // Save changes in the application's managed object context when the application transitions to the background.
-        (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
+        (UIApplication.shared.delegate as? AppDelegate)?.coreDataService.saveRootContext()
     }
 
 
