@@ -6,14 +6,23 @@
 //
 
 import UIKit
+import OSLog
 
+extension Logger {
+    
+    static let opportunitiesListVC = Logger(subsystem: subsystem, category: "JROpportunitiesListVC")
+    
+}
 class JROpportunitiesListVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     private let ActivityIndicatorOpacity: Float = 0.7
+    private let EmptyLabelFontSize: CGFloat = 40
     
     private let opportunitiesService: JROpportunitiesServiceProtocol
+    
     private let tableView = UITableView(frame: .zero, style: .grouped)
     private let activityIndicatorView = UIView(frame: .zero)
+    private let emptyContentLabel = UILabel(frame: .zero)
     
     private var opportunitiesList = [JROpportunity]()
     
@@ -106,6 +115,14 @@ class JROpportunitiesListVC: UIViewController, UITableViewDataSource, UITableVie
         view.backgroundColor = .white
         navigationItem.backButtonTitle = " "
         
+        emptyContentLabel.translatesAutoresizingMaskIntoConstraints = false
+        emptyContentLabel.isHidden = true
+        emptyContentLabel.textAlignment = .center
+        emptyContentLabel.font = .etelka(EmptyLabelFontSize)
+        emptyContentLabel.numberOfLines = -1
+        emptyContentLabel.text = "JROpportunitiesListVC.EmptyList".local
+        view.addSubview(emptyContentLabel)
+        
         tableView.backgroundColor = .clear
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.delegate = self
@@ -131,7 +148,7 @@ class JROpportunitiesListVC: UIViewController, UITableViewDataSource, UITableVie
         activityIndicatorView.backgroundColor = .black
         activityIndicatorView.layer.opacity = ActivityIndicatorOpacity
         view.addSubview(activityIndicatorView)
-        
+
         navigationItem.title = "Jolly Roger"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
                                                             target: self,
@@ -147,20 +164,45 @@ class JROpportunitiesListVC: UIViewController, UITableViewDataSource, UITableVie
             activityIndicatorView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             activityIndicatorView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             activityIndicatorView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            
+            emptyContentLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            emptyContentLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            emptyContentLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            emptyContentLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
         ])
     }
     
     private func fetchOpportunities() {
         activityIndicatorView.isHidden = false
-        opportunitiesService.fetchSortedOpportunities { list in
+        Task {
+            let listResult = await opportunitiesService.fetchSortedOpportunities()
             DispatchQueue.main.async { [weak self] in
                 guard  let self = self else {
                     return
                 }
                 
-                self.opportunitiesList = list
-                self.tableView.reloadData()
                 self.activityIndicatorView.isHidden = true
+                switch listResult {
+                case .success(let list):
+                    if list.isEmpty {
+                        self.emptyContentLabel.isHidden = false
+                    }
+                    else {
+                        self.emptyContentLabel.isHidden = true
+                    }
+                    self.opportunitiesList = list
+                    self.tableView.reloadData()
+                case .failure(let error):
+                    switch error {
+                    case .emptyOpportunityList:
+                        self.emptyContentLabel.isHidden = false
+                        self.opportunitiesList = [JROpportunity]()
+                        self.tableView.reloadData()
+                    default:
+                        Logger.opportunitiesListVC.debug("\(error.localizedDescription)")
+                        break
+                    }
+                }
             }
         }
     }

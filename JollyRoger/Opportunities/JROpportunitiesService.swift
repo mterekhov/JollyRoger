@@ -6,8 +6,7 @@
 //
 
 import OSLog
-
-typealias FetchOpportunitiesListCompletionHandler = ([JROpportunity]) -> Void
+import CoreData
 
 extension Logger {
 
@@ -18,6 +17,7 @@ extension Logger {
 enum EOpportunitiesServiceError: String, LocalizedError {
     
     case coreDataError = "OpportunitiesServiceCoreDataError"
+    case emptyOpportunityList = "OpportunitiesServiceEmptyOpportunityList"
 
     var localizedDescription: String { return self.rawValue.local }
     
@@ -25,7 +25,7 @@ enum EOpportunitiesServiceError: String, LocalizedError {
 
 protocol JROpportunitiesServiceProtocol {
     
-    func fetchSortedOpportunities(_ completionBlock: @escaping FetchOpportunitiesListCompletionHandler)
+    func fetchSortedOpportunities() async -> Result<[JROpportunity], EOpportunitiesServiceError>
     
 }
 
@@ -37,29 +37,57 @@ class JROpportunitiesService: JROpportunitiesServiceProtocol {
         self.coreDataService = coreDataService
     }
     
-    func fetchSortedOpportunities(_ completionBlock: @escaping FetchOpportunitiesListCompletionHandler) {
-        completionBlock([
-            JROpportunity(uuid: UUID().uuidString,
-                          positionTitle: "Senior iOS developer",
-                          companyName: "Facebook",
-                          date: Date(),
-                          contactName: "Lena Snake",
-                          contactPoint: "telegram",
-                          notes: "some notes",
-                          remoteStatus: "fully remnote world wide",
-                          salary: "5000$",
-                          status: EOpportunityStatus.inProgress),
-            JROpportunity(uuid: UUID().uuidString,
-                          positionTitle: "Team Lead",
-                          companyName: "Google",
-                          date: Date(),
-                          contactName: "Olga",
-                          contactPoint: "LinkedIN",
-                          notes: "some notes",
-                          remoteStatus: "fully remnote world wide",
-                          salary: "7000$",
-                          status: EOpportunityStatus.inProgress)
-        ])
+    func fetchSortedOpportunities() async -> Result<[JROpportunity], EOpportunitiesServiceError> {
+        guard let coreDataService = coreDataService else {
+            return .failure(.coreDataError)
+        }
+        
+        let localContext = coreDataService.localContext()
+        var result: Result<[JROpportunity], EOpportunitiesServiceError> = .success([])
+        
+        await localContext.perform {
+            do {
+                guard let opportunitiesList = try localContext.fetch(NSFetchRequest<NSFetchRequestResult>(entityName: JROpportunityCD.entity().name ?? "")) as? [JROpportunityCD] else {
+                    result = .failure(.coreDataError)
+                    return
+                }
+                
+                if opportunitiesList.isEmpty {
+                    result = .failure(.emptyOpportunityList)
+                    return
+                }
+                
+                guard let convertedList = self.convertOpportunitiesListIntoViewModel(opportunitiesList) else {
+                    result = .failure(.coreDataError)
+                    return
+                }
+                result = .success(convertedList)
+            }
+            catch (let error) {
+                result = .failure(.coreDataError)
+            }
+        }
+        
+        return result
+    }
+    
+    private func convertOpportunitiesListIntoViewModel(_ coreDataList: [JROpportunityCD]) -> [JROpportunity]? {
+        var opportunitiesList: [JROpportunity]?
+        
+        coreDataList.forEach { coreDataOpportunity in
+            opportunitiesList?.append(JROpportunity(uuid: coreDataOpportunity.uuid ?? "",
+                                                    positionTitle: coreDataOpportunity.positionTitle ?? "",
+                                                    companyName: coreDataOpportunity.companyName ?? "",
+                                                    date: coreDataOpportunity.date ?? Date(),
+                                                    contactName: coreDataOpportunity.contactName ?? "",
+                                                    contactPoint: coreDataOpportunity.contactPoint ?? "",
+                                                    notes: coreDataOpportunity.notes ?? "",
+                                                    remoteStatus: coreDataOpportunity.remoteStatus ?? "",
+                                                    salary: coreDataOpportunity.salary ?? "",
+                                                    status: EOpportunityStatus(rawValue: Int(coreDataOpportunity.status)) ?? EOpportunityStatus.closedAsFailed))
+        }
+        
+        return opportunitiesList
     }
     
 }

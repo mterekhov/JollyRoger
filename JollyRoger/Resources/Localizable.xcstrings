@@ -1,5 +1,39 @@
 {
   "sourceLanguage" : "en",
-  "strings" : {},
+  "strings" : {
+    "JROpportunitiesListVC.EmptyList" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "There are no opportunities in database"
+          }
+        }
+      }
+    },
+    "OpportunitiesServiceCoreDataError" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error while interacting with CoreData"
+          }
+        }
+      }
+    },
+    "OpportunitiesServiceEmptyOpportunityList" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "There are no opportunities found in database"
+          }
+        }
+      }
+    }
+  },
   "version" : "1.0"
 }

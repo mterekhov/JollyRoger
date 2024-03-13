@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum EOpportunityStatus {
+enum EOpportunityStatus: Int {
     
     case inProgress
     case finished
