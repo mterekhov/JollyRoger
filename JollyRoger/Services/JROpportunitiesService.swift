@@ -26,6 +26,7 @@ enum EOpportunitiesServiceError: String, LocalizedError {
 protocol JROpportunitiesServiceProtocol {
     
     func fetchSortedOpportunities() async -> Result<[JROpportunity], EOpportunitiesServiceError>
+    func createEmptyOpportunity() -> JROpportunity
     
 }
 
@@ -37,6 +38,22 @@ class JROpportunitiesService: JROpportunitiesServiceProtocol {
         self.coreDataService = coreDataService
     }
     
+    // MARK: - JROpportunitiesServiceProtocol -
+
+    func createEmptyOpportunity() -> JROpportunity {
+        var newOpportunity = JROpportunity(uuid: UUID().uuidString,
+                                           positionTitle: "Developer",
+                                           companyName: "FAANG",
+                                           date: Date(),
+                                           contactName: "John Dow",
+                                           contactPoint: "telegram",
+                                           notes: "lorem ipsum",
+                                           remoteStatus: "fully remote world-wide",
+                                           salary: "5000$",
+                                           status: .inProgress)
+        return newOpportunity
+    }
+
     func fetchSortedOpportunities() async -> Result<[JROpportunity], EOpportunitiesServiceError> {
         guard let coreDataService = coreDataService else {
             return .failure(.coreDataError)
@@ -71,6 +88,8 @@ class JROpportunitiesService: JROpportunitiesServiceProtocol {
         return result
     }
     
+    // MARK: - Routine -
+
     private func convertOpportunitiesListIntoViewModel(_ coreDataList: [JROpportunityCD]) -> [JROpportunity]? {
         var opportunitiesList: [JROpportunity]?
         

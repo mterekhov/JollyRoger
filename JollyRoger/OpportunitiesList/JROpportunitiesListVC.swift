@@ -13,7 +13,7 @@ extension Logger {
     static let opportunitiesListVC = Logger(subsystem: subsystem, category: "JROpportunitiesListVC")
     
 }
-class JROpportunitiesListVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class JROpportunitiesListVC: UIViewController, UITableViewDataSource, UITableViewDelegate, JREditOpportunityDelegate {
     
     private let ActivityIndicatorOpacity: Float = 0.7
     private let EmptyLabelFontSize: CGFloat = 40
@@ -101,20 +101,33 @@ class JROpportunitiesListVC: UIViewController, UITableViewDataSource, UITableVie
         //                                                 animated: true)
     }
     
+    // MARK: - JREditOpportunityDelegate -
+
+    func closeScreen(_ opportunityValue: JROpportunity) {
+        dismiss(animated: true)
+    }
+    
     // MARK: - Handlers -
     
     @objc
     private func newOpportunityButtonTapped(_ sender: UIBarButtonItem) {
-        //        dreamsService.saveJournal(dreamsList, "new_journal") {
-        //        }
+        let editVC = JREditOpportunityVC(editOpportunity: nil, opportunitiesService: opportunitiesService)
+        editVC.delegate = self
+        editVC.modalPresentationStyle = .overFullScreen
+        present(editVC, animated: true)
     }
     
     // MARK: - Routine -
     
     private func createLayout() {
         view.backgroundColor = .white
+
         navigationItem.backButtonTitle = " "
-        
+        navigationItem.title = "Jolly Roger"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
+                                                            target: self,
+                                                            action: #selector(newOpportunityButtonTapped(_:)))
+
         emptyContentLabel.translatesAutoresizingMaskIntoConstraints = false
         emptyContentLabel.isHidden = true
         emptyContentLabel.textAlignment = .center
@@ -148,11 +161,6 @@ class JROpportunitiesListVC: UIViewController, UITableViewDataSource, UITableVie
         activityIndicatorView.backgroundColor = .black
         activityIndicatorView.layer.opacity = ActivityIndicatorOpacity
         view.addSubview(activityIndicatorView)
-
-        navigationItem.title = "Jolly Roger"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
-                                                            target: self,
-                                                            action: #selector(newOpportunityButtonTapped(_:)))
         
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -208,4 +216,3 @@ class JROpportunitiesListVC: UIViewController, UITableViewDataSource, UITableVie
     }
     
 }
-
