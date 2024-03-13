@@ -15,6 +15,16 @@
 		DE32EB112BA1BCF20010A3F0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE32EB0F2BA1BCF20010A3F0 /* LaunchScreen.storyboard */; };
 		DE32EB192BA1C2400010A3F0 /* JRCoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE32EB182BA1C2400010A3F0 /* JRCoreDataService.swift */; };
 		DE32EB1B2BA1C2AB0010A3F0 /* NSManagedObjectContext+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE32EB1A2BA1C2AB0010A3F0 /* NSManagedObjectContext+Extension.swift */; };
+		DE32EB1D2BA1C55F0010A3F0 /* JROpportunitiesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE32EB1C2BA1C55F0010A3F0 /* JROpportunitiesService.swift */; };
+		DE32EB202BA1C5E60010A3F0 /* JROpportunity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE32EB1F2BA1C5E60010A3F0 /* JROpportunity.swift */; };
+		DE32EB222BA1C7750010A3F0 /* Logger+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE32EB212BA1C7750010A3F0 /* Logger+Extension.swift */; };
+		DE32EB242BA1C7E40010A3F0 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE32EB232BA1C7E40010A3F0 /* String+Extension.swift */; };
+		DE32EB262BA1C8170010A3F0 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = DE32EB252BA1C8170010A3F0 /* Localizable.xcstrings */; };
+		DE32EB2A2BA1C9350010A3F0 /* JROpportunityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE32EB292BA1C9350010A3F0 /* JROpportunityCell.swift */; };
+		DE32EB2C2BA21C670010A3F0 /* JRLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE32EB2B2BA21C670010A3F0 /* JRLabel.swift */; };
+		DE32EB2E2BA21D580010A3F0 /* Font+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE32EB2D2BA21D580010A3F0 /* Font+extension.swift */; };
+		DE32EB302BA21DBD0010A3F0 /* EuclidFlex-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = DE32EB2F2BA21DBD0010A3F0 /* EuclidFlex-Regular.otf */; };
+		DE32EB322BA21DF10010A3F0 /* DateFormatter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE32EB312BA21DF10010A3F0 /* DateFormatter+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +38,16 @@
 		DE32EB122BA1BCF20010A3F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DE32EB182BA1C2400010A3F0 /* JRCoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JRCoreDataService.swift; sourceTree = "<group>"; };
 		DE32EB1A2BA1C2AB0010A3F0 /* NSManagedObjectContext+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+Extension.swift"; sourceTree = "<group>"; };
+		DE32EB1C2BA1C55F0010A3F0 /* JROpportunitiesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JROpportunitiesService.swift; sourceTree = "<group>"; };
+		DE32EB1F2BA1C5E60010A3F0 /* JROpportunity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JROpportunity.swift; sourceTree = "<group>"; };
+		DE32EB212BA1C7750010A3F0 /* Logger+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Logger+Extension.swift"; sourceTree = "<group>"; };
+		DE32EB232BA1C7E40010A3F0 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		DE32EB252BA1C8170010A3F0 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		DE32EB292BA1C9350010A3F0 /* JROpportunityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JROpportunityCell.swift; sourceTree = "<group>"; };
+		DE32EB2B2BA21C670010A3F0 /* JRLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JRLabel.swift; sourceTree = "<group>"; };
+		DE32EB2D2BA21D580010A3F0 /* Font+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+extension.swift"; sourceTree = "<group>"; };
+		DE32EB2F2BA21DBD0010A3F0 /* EuclidFlex-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "EuclidFlex-Regular.otf"; sourceTree = "<group>"; };
+		DE32EB312BA21DF10010A3F0 /* DateFormatter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,17 +80,59 @@
 		DE32EB002BA1BCF10010A3F0 /* JollyRoger */ = {
 			isa = PBXGroup;
 			children = (
+				DE32EB332BA21E2F0010A3F0 /* UIComponents */,
+				DE32EB1E2BA1C5C80010A3F0 /* Opportunities */,
+				DE32EB282BA1C82D0010A3F0 /* Extension */,
 				DE32EB182BA1C2400010A3F0 /* JRCoreDataService.swift */,
-				DE32EB1A2BA1C2AB0010A3F0 /* NSManagedObjectContext+Extension.swift */,
 				DE32EB012BA1BCF10010A3F0 /* AppDelegate.swift */,
 				DE32EB032BA1BCF10010A3F0 /* SceneDelegate.swift */,
-				DE32EB052BA1BCF10010A3F0 /* JROpportunitiesListVC.swift */,
-				DE32EB0D2BA1BCF20010A3F0 /* Assets.xcassets */,
-				DE32EB0F2BA1BCF20010A3F0 /* LaunchScreen.storyboard */,
+				DE32EB272BA1C8240010A3F0 /* Resources */,
 				DE32EB122BA1BCF20010A3F0 /* Info.plist */,
-				DE32EB0A2BA1BCF10010A3F0 /* JollyRoger.xcdatamodeld */,
 			);
 			path = JollyRoger;
+			sourceTree = "<group>";
+		};
+		DE32EB1E2BA1C5C80010A3F0 /* Opportunities */ = {
+			isa = PBXGroup;
+			children = (
+				DE32EB052BA1BCF10010A3F0 /* JROpportunitiesListVC.swift */,
+				DE32EB292BA1C9350010A3F0 /* JROpportunityCell.swift */,
+				DE32EB1F2BA1C5E60010A3F0 /* JROpportunity.swift */,
+				DE32EB1C2BA1C55F0010A3F0 /* JROpportunitiesService.swift */,
+			);
+			path = Opportunities;
+			sourceTree = "<group>";
+		};
+		DE32EB272BA1C8240010A3F0 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				DE32EB2F2BA21DBD0010A3F0 /* EuclidFlex-Regular.otf */,
+				DE32EB252BA1C8170010A3F0 /* Localizable.xcstrings */,
+				DE32EB0D2BA1BCF20010A3F0 /* Assets.xcassets */,
+				DE32EB0F2BA1BCF20010A3F0 /* LaunchScreen.storyboard */,
+				DE32EB0A2BA1BCF10010A3F0 /* JollyRoger.xcdatamodeld */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		DE32EB282BA1C82D0010A3F0 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				DE32EB1A2BA1C2AB0010A3F0 /* NSManagedObjectContext+Extension.swift */,
+				DE32EB232BA1C7E40010A3F0 /* String+Extension.swift */,
+				DE32EB312BA21DF10010A3F0 /* DateFormatter+Extension.swift */,
+				DE32EB212BA1C7750010A3F0 /* Logger+Extension.swift */,
+				DE32EB2D2BA21D580010A3F0 /* Font+extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		DE32EB332BA21E2F0010A3F0 /* UIComponents */ = {
+			isa = PBXGroup;
+			children = (
+				DE32EB2B2BA21C670010A3F0 /* JRLabel.swift */,
+			);
+			path = UIComponents;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -132,7 +194,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE32EB112BA1BCF20010A3F0 /* LaunchScreen.storyboard in Resources */,
+				DE32EB302BA21DBD0010A3F0 /* EuclidFlex-Regular.otf in Resources */,
 				DE32EB0E2BA1BCF20010A3F0 /* Assets.xcassets in Resources */,
+				DE32EB262BA1C8170010A3F0 /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -143,12 +207,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE32EB2C2BA21C670010A3F0 /* JRLabel.swift in Sources */,
 				DE32EB0C2BA1BCF10010A3F0 /* JollyRoger.xcdatamodeld in Sources */,
+				DE32EB1D2BA1C55F0010A3F0 /* JROpportunitiesService.swift in Sources */,
 				DE32EB1B2BA1C2AB0010A3F0 /* NSManagedObjectContext+Extension.swift in Sources */,
 				DE32EB192BA1C2400010A3F0 /* JRCoreDataService.swift in Sources */,
+				DE32EB2E2BA21D580010A3F0 /* Font+extension.swift in Sources */,
+				DE32EB222BA1C7750010A3F0 /* Logger+Extension.swift in Sources */,
 				DE32EB062BA1BCF10010A3F0 /* JROpportunitiesListVC.swift in Sources */,
 				DE32EB022BA1BCF10010A3F0 /* AppDelegate.swift in Sources */,
+				DE32EB322BA21DF10010A3F0 /* DateFormatter+Extension.swift in Sources */,
 				DE32EB042BA1BCF10010A3F0 /* SceneDelegate.swift in Sources */,
+				DE32EB2A2BA1C9350010A3F0 /* JROpportunityCell.swift in Sources */,
+				DE32EB242BA1C7E40010A3F0 /* String+Extension.swift in Sources */,
+				DE32EB202BA1C5E60010A3F0 /* JROpportunity.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

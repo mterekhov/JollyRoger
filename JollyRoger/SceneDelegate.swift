@@ -16,7 +16,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
         
-        let viewController = JROpportunitiesListVC(coreDataService: (UIApplication.shared.delegate as? AppDelegate)?.coreDataService)
+        let coreDataService = (UIApplication.shared.delegate as? AppDelegate)?.coreDataService
+        let opportunitiesService = JROpportunitiesService(coreDataService: coreDataService)
+        let viewController = JROpportunitiesListVC(opportunitiesService: opportunitiesService)
         let navvc = UINavigationController(rootViewController: viewController)
         
         window = UIWindow(frame: windowsScene.coordinateSpace.bounds)
