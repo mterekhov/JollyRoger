@@ -1,6 +1,17 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "CancelTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        }
+      }
+    },
     "JROpportunitiesListVC.EmptyList" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -8,6 +19,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "There are no opportunities in database"
+          }
+        }
+      }
+    },
+    "OkTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
           }
         }
       }
