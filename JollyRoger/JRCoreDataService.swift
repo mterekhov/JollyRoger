@@ -51,7 +51,7 @@ class JRCoreDataService: JRCoreDataServiceProtocol {
     }
 
     func saveRootContext() {
-        persistentContainer.viewContext.jellyroger_saveContext()
+        persistentContainer.viewContext.jollyroger_saveContext()
     }
 
 }

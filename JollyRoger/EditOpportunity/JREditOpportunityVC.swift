@@ -31,30 +31,23 @@ enum EOpportunityField: Int {
 
 protocol JREditOpportunityDelegate: AnyObject {
     
-    func closeScreen(_ opportunityValue: JROpportunity)
-    
+    func saveOpportunity(_ opportunityValue: JROpportunity)
+    func closeScreen()
+
 }
 
 class JREditOpportunityVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     private let CloseButtonLeftOffset: CGFloat = 25
-    private let CloseButtonSize: CGFloat = 50
 
-    private let opportunitiesService: JROpportunitiesServiceProtocol
     private var opportunity: JROpportunity
     
     private let tableView = UITableView(frame: .zero, style: .grouped)
     
     weak var delegate: JREditOpportunityDelegate?
 
-    init(editOpportunity: JROpportunity?, opportunitiesService: JROpportunitiesServiceProtocol) {
-        self.opportunitiesService = opportunitiesService
-        if let editOpportunity = editOpportunity {
-            opportunity = editOpportunity
-        }
-        else {
-            opportunity = opportunitiesService.createEmptyOpportunity()
-        }
+    init(editOpportunity: JROpportunity) {
+        opportunity = editOpportunity
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -158,7 +151,7 @@ class JREditOpportunityVC: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60//UITableView.automaticDimension
+        return 60
     }
 
     // MARK: - UITableViewDelegate -
@@ -175,7 +168,12 @@ class JREditOpportunityVC: UIViewController, UITableViewDataSource, UITableViewD
     
     @objc
     private func closeButtonTapped() {
-        delegate?.closeScreen(opportunity)
+        delegate?.closeScreen()
+    }
+
+    @objc
+    private func saveButtonTapped() {
+        delegate?.saveOpportunity(opportunity)
     }
 
     // MARK: - Routine -
@@ -193,24 +191,29 @@ class JREditOpportunityVC: UIViewController, UITableViewDataSource, UITableViewD
         tableView.rowHeight = UITableView.automaticDimension
         view.addSubview(tableView)
         
-        let closeButton = UIButton(frame: .zero)
+        let closeButton = UIButton(type: .close)
         closeButton.translatesAutoresizingMaskIntoConstraints = false
-        closeButton.setImage(UIImage(named: "close_button"), for: .normal)
         closeButton.backgroundColor = .white
-        closeButton.layer.cornerRadius = ceil(CloseButtonSize / 2)
         closeButton.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
         view.addSubview(closeButton)
 
+        let saveButton = UIButton(type: .contactAdd)
+        saveButton.translatesAutoresizingMaskIntoConstraints = false
+        saveButton.backgroundColor = .white
+        saveButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
+        view.addSubview(saveButton)
+
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: closeButton.bottomAnchor),
+            tableView.topAnchor.constraint(equalTo: closeButton.bottomAnchor, constant: CloseButtonLeftOffset),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
 
             closeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             closeButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -CloseButtonLeftOffset),
-            closeButton.heightAnchor.constraint(equalToConstant: CloseButtonSize),
-            closeButton.widthAnchor.constraint(equalToConstant: CloseButtonSize)
+
+            saveButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            saveButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: CloseButtonLeftOffset),
         ])
     }
     

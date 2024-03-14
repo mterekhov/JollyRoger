@@ -9,7 +9,7 @@ import CoreData
 
 extension NSManagedObjectContext {
     
-    func jellyroger_saveContext() {
+    func jollyroger_saveContext() {
         if !hasChanges {
             return
         }

@@ -94,27 +94,60 @@ class JROpportunitiesListVC: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //        let viewController = DJDreamDetailsVC.dreamViewController(dreamsList[indexPath.row],
-        //                                                                  DJDreamsService((UIApplication.shared.delegate as? AppDelegate)?.coreDataService),
-        //                                                                  self)
-        //        navigationController?.pushViewController(viewController,
-        //                                                 animated: true)
+        let editVC = JREditOpportunityVC(editOpportunity: opportunitiesList[indexPath.row])
+        editVC.delegate = self
+        editVC.modalPresentationStyle = .overFullScreen
+        present(editVC, animated: true)
     }
     
     // MARK: - JREditOpportunityDelegate -
 
-    func closeScreen(_ opportunityValue: JROpportunity) {
-        dismiss(animated: true)
+    func closeScreen() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+         
+            self.fetchOpportunities()
+            self.dismiss(animated: true)
+        }
+    }
+    
+    func saveOpportunity(_ opportunityValue: JROpportunity) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.activityIndicatorView.isHidden = false
+        }
+        
+        Task {
+            let searchResult = await opportunitiesService.findOpportunity(uuid: opportunityValue.uuid)
+            switch searchResult {
+            case .success(let foundOpportunity):
+                await updateOpportunity(foundOpportunity)
+            case .failure(let error):
+                if error == .opportunityNotFound {
+                    let newOpportunityResult = await opportunitiesService.createNewOpportunity()
+                    switch newOpportunityResult {
+                    case .success(let newOpportunity):
+                        await updateOpportunity(newOpportunity)
+                    case .failure(let error):
+                        showErrorLabel(error)
+                    }
+                    return
+                }
+                showErrorLabel(error)
+            }
+        }
     }
     
     // MARK: - Handlers -
     
     @objc
     private func newOpportunityButtonTapped(_ sender: UIBarButtonItem) {
-        let editVC = JREditOpportunityVC(editOpportunity: nil, opportunitiesService: opportunitiesService)
+        let newOpportunity = opportunitiesService.createNewOpportunityModel()
+        
+        let editVC = JREditOpportunityVC(editOpportunity: newOpportunity)
         editVC.delegate = self
         editVC.modalPresentationStyle = .overFullScreen
-        present(editVC, animated: true)
+        self.present(editVC, animated: true)
     }
     
     // MARK: - Routine -
@@ -178,6 +211,33 @@ class JROpportunitiesListVC: UIViewController, UITableViewDataSource, UITableVie
             emptyContentLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             emptyContentLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
         ])
+    }
+    
+    private func updateOpportunity(_ opportunity: JROpportunity) async {
+        let updateResult = await opportunitiesService.updateOpportunity(opportunity: opportunity)
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.activityIndicatorView.isHidden = true
+            switch updateResult {
+            case .success(let success):
+                self.fetchOpportunities()
+            case .failure(let error):
+                self.emptyContentLabel.text = error.localizedDescription
+                self.emptyContentLabel.isHidden = false
+            }
+            self.dismiss(animated: true)
+        }
+    }
+    
+    private func showErrorLabel(_ error: EOpportunitiesServiceError) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            
+            self.activityIndicatorView.isHidden = true
+            self.emptyContentLabel.text = error.localizedDescription
+            self.emptyContentLabel.isHidden = false
+            self.dismiss(animated: true)
+        }
     }
     
     private func fetchOpportunities() {

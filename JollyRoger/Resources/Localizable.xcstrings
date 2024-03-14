@@ -33,6 +33,17 @@
           }
         }
       }
+    },
+    "OpportunitiesServiceOpportunityNotFound" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opportunity was not found"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"
