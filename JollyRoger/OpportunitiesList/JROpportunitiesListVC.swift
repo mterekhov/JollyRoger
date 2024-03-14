@@ -82,15 +82,16 @@ class JROpportunitiesListVC: UIViewController, UITableViewDataSource, UITableVie
     // MARK: - UITableViewDelegate -
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        //        dreamsService.deleteDream(dreamsList[indexPath.row].uuid) {
-        //            DispatchQueue.main.async { [weak self] in
-        //                guard let self = self else {
-        //                    return
-        //                }
-        //
-        //                self.fetchDreamsList()
-        //            }
-        //        }
+        let opportunity = opportunitiesList[indexPath.row]
+        Task {
+            let result = await opportunitiesService.deleteOpportunity(opportunity: opportunity)
+            switch result {
+            case .success(let success):
+                fetchOpportunities()
+            case .failure(let error):
+                showErrorLabel(error)
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

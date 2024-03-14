@@ -31,6 +31,7 @@ protocol JROpportunitiesServiceProtocol {
     func findOpportunity(uuid: String) async -> Result<JROpportunity, EOpportunitiesServiceError>
     func fetchSortedOpportunities() async -> Result<[JROpportunity], EOpportunitiesServiceError>
     func updateOpportunity(opportunity: JROpportunity) async -> Result<Void, EOpportunitiesServiceError>
+    func deleteOpportunity(opportunity: JROpportunity) async -> Result<Void, EOpportunitiesServiceError>
     
 }
 
@@ -43,6 +44,23 @@ class JROpportunitiesService: JROpportunitiesServiceProtocol {
     }
     
     // MARK: - JROpportunitiesServiceProtocol -
+
+    func deleteOpportunity(opportunity: JROpportunity) async -> Result<Void, EOpportunitiesServiceError> {
+        guard let coreDataService = coreDataService else {
+            return .failure(.coreDataError)
+        }
+        
+        let localContext = coreDataService.localContext()
+        let searchResults = self.findOpportunity(uuid: opportunity.uuid, localContext: localContext)
+        switch searchResults {
+        case .success(let coreDataOpportunity):
+            localContext.delete(coreDataOpportunity)
+            localContext.jollyroger_saveContext()
+            return .success(())
+        case .failure(let failure):
+            return .failure(.opportunityNotFound)
+        }
+    }
 
     func updateOpportunity(opportunity: JROpportunity) async -> Result<Void, EOpportunitiesServiceError> {
         guard let coreDataService = coreDataService else {
