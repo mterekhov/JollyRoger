@@ -30,4 +30,8 @@ extension UIColor {
         return .black.withAlphaComponent(0.7)
     }
     
+    static func pirateGrey() -> UIColor {
+        return UIColor(hex: 0xD9D9D9)
+    }
+    
 }

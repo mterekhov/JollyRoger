@@ -60,6 +60,10 @@ class JROpportunitiesListVC: UIViewController, UITableViewDataSource, UITableVie
         newCell.backgroundColor = .clear
         newCell.configureCell(opportunitiesList[indexPath.row])
         
+        if (indexPath.row % 2) == 0 {
+            newCell.backgroundColor = UIColor.pirateGrey()
+        }
+        
         return newCell
     }
     
