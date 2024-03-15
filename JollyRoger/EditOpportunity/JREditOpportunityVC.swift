@@ -69,7 +69,7 @@ class JREditOpportunityVC: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return EOpportunityField.size.rawValue - 1
+        return EOpportunityField.size.rawValue
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -80,53 +80,23 @@ class JREditOpportunityVC: UIViewController, UITableViewDataSource, UITableViewD
         let field = EOpportunityField(rawValue: indexPath.row)
         switch field {
         case .positionTitle:
-            newCell.configureCell("Position", opportunity.positionTitle) { newText in
-                if let newText = newText {
-                    self.opportunity.positionTitle = newText
-                }
-            }
+            newCell.configureCell("Position", opportunity.positionTitle)
         case .companyName:
-            newCell.configureCell("Company", opportunity.companyName) { newText in
-                if let newText = newText {
-                    self.opportunity.companyName = newText
-                }
-            }
+            newCell.configureCell("Company", opportunity.companyName)
         case .contactName:
-            newCell.configureCell("Contact", opportunity.contactName) { newText in
-                if let newText = newText {
-                    self.opportunity.contactName = newText
-                }
-            }
+            newCell.configureCell("Contact", opportunity.contactName)
         case .contactPoint:
-            newCell.configureCell("Contact point", opportunity.contactPoint) { newText in
-                if let newText = newText {
-                    self.opportunity.contactPoint = newText
-                }
-            }
+            newCell.configureCell("Contact point", opportunity.contactPoint)
         case .notes:
-            newCell.configureCell("Notes", opportunity.notes) { newText in
-                if let newText = newText {
-                    self.opportunity.notes = newText
-                }
-            }
+            newCell.configureCell("Notes", opportunity.notes)
         case .remoteStatus:
-            newCell.configureCell("Remote", opportunity.remoteStatus) { newText in
-                if let newText = newText {
-                    self.opportunity.remoteStatus = newText
-                }
-            }
+            newCell.configureCell("Remote", opportunity.remoteStatus)
         case .salary:
-            newCell.configureCell("Salary", opportunity.salary) { newText in
-                if let newText = newText {
-                    self.opportunity.salary = newText
-                }
-            }
+            newCell.configureCell("Salary", opportunity.salary)
         case .date:
-            newCell.configureCell("Date", DateFormatter.jollyroger_dateFormatter().string(from: opportunity.date)) { newText in
-                if let newText = newText {
-                    self.opportunity.salary = newText
-                }
-            }
+            newCell.configureCell("Date", DateFormatter.jollyroger_dateFormatter().string(from: opportunity.date))
+        case .status:
+            newCell.configureCell("Status", opportunity.status.title)
         default:
             break
         }
@@ -157,11 +127,98 @@ class JREditOpportunityVC: UIViewController, UITableViewDataSource, UITableViewD
     // MARK: - UITableViewDelegate -
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //        let viewController = DJDreamDetailsVC.dreamViewController(dreamsList[indexPath.row],
-        //                                                                  DJDreamsService((UIApplication.shared.delegate as? AppDelegate)?.coreDataService),
-        //                                                                  self)
-        //        navigationController?.pushViewController(viewController,
-        //                                                 animated: true)
+        let field = EOpportunityField(rawValue: indexPath.row)
+
+        let editVC = JREditPopupVC()
+        let cancelBlock: CancelHandler = {
+            self.tableView.reloadData()
+            editVC.jollyroger_dismissModal()
+        }
+        switch field {
+        case .positionTitle:
+            editVC.configure(initialValue: opportunity.positionTitle,
+                             title: "Edit",
+                             okBlock: { newText in
+                self.opportunity.positionTitle = newText
+                self.tableView.reloadData()
+                editVC.jollyroger_dismissModal()
+            },
+                             cancelBlock: cancelBlock)
+            jollyroger_presentModal(viewControllerToPresent: editVC)
+        case .companyName:
+            editVC.configure(initialValue: opportunity.companyName,
+                             title: "Edit",
+                             okBlock: { newText in
+                self.opportunity.companyName = newText
+                self.tableView.reloadData()
+                editVC.jollyroger_dismissModal()
+            },
+                             cancelBlock: cancelBlock)
+            jollyroger_presentModal(viewControllerToPresent: editVC)
+        case .contactName:
+            editVC.configure(initialValue: opportunity.contactName,
+                             title: "Edit",
+                             okBlock: { newText in
+                self.opportunity.contactName = newText
+                self.tableView.reloadData()
+                editVC.jollyroger_dismissModal()
+            },
+                             cancelBlock: cancelBlock)
+            jollyroger_presentModal(viewControllerToPresent: editVC)
+        case .contactPoint:
+            editVC.configure(initialValue: opportunity.contactPoint,
+                             title: "Edit",
+                             okBlock: { newText in
+                self.opportunity.contactPoint = newText
+                self.tableView.reloadData()
+                editVC.jollyroger_dismissModal()
+            },
+                             cancelBlock: cancelBlock)
+            jollyroger_presentModal(viewControllerToPresent: editVC)
+        case .notes:
+            editVC.configure(initialValue: opportunity.notes,
+                             title: "Edit",
+                             okBlock: { newText in
+                self.opportunity.notes = newText
+                self.tableView.reloadData()
+                editVC.jollyroger_dismissModal()
+            },
+                             cancelBlock: cancelBlock)
+            jollyroger_presentModal(viewControllerToPresent: editVC)
+        case .salary:
+            editVC.configure(initialValue: opportunity.salary,
+                             title: "Edit",
+                             okBlock: { newText in
+                self.opportunity.salary = newText
+                self.tableView.reloadData()
+                editVC.jollyroger_dismissModal()
+            },
+                             cancelBlock: cancelBlock)
+            jollyroger_presentModal(viewControllerToPresent: editVC)
+        case .remoteStatus:
+            editVC.configure(initialValue: opportunity.remoteStatus,
+                             title: "Edit",
+                             okBlock: { newText in
+                self.opportunity.remoteStatus = newText
+                self.tableView.reloadData()
+                editVC.jollyroger_dismissModal()
+            },
+                             cancelBlock: cancelBlock)
+            jollyroger_presentModal(viewControllerToPresent: editVC)
+        case .status:
+            let statusPickerVC = JRStatusPickerVC(title: "Status".local, limit: 4, initialValue: opportunity.status.rawValue)
+            statusPickerVC.doneButtonHandler = {
+                statusPickerVC.jollyroger_dismissModal()
+                self.tableView.reloadData()
+            }
+            statusPickerVC.statusChangedHandler = { newStatus in
+                self.opportunity.status = newStatus
+            }
+            jollyroger_presentModal(viewControllerToPresent: statusPickerVC)
+//        case .date:
+        default:
+            break
+        }
     }
 
     // MARK: - Handlers -

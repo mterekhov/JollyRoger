@@ -27,6 +27,19 @@ enum EOpportunityStatus: Int {
         }
     }
     
+    var title: String {
+        switch self {
+        case .inProgress:
+            return "StatusInProgress".local
+        case .finished:
+            return "StatusFinished".local
+        case .closedAsFailed:
+            return "StatusClosedAsFailed".local
+        case .closedAsOffer:
+            return "StatusClosedAsOffer".local
+        }
+    }
+    
 }
 
 struct JROpportunity {

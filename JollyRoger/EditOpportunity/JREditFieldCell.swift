@@ -7,8 +7,6 @@
 
 import UIKit
 
-typealias EditFieldHandler = (_ newText: String?) -> Void
-
 class JREditFieldCell: UITableViewCell {
 
     private let TitleFontSize: CGFloat = 24
@@ -17,7 +15,6 @@ class JREditFieldCell: UITableViewCell {
 
     private let valueTitleLabel = UILabel(frame: .zero)
     private let fieldValueLabel = UILabel(frame: .zero)
-    private var changeHandler: EditFieldHandler?
 
     override init(style: CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -29,10 +26,9 @@ class JREditFieldCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func configureCell(_ title: String, _ initialText: String?, _ textChangeHandler: EditFieldHandler?) {
+    public func configureCell(_ title: String, _ initialText: String?) {
         valueTitleLabel.text = title + ": "
         fieldValueLabel.text = initialText
-        changeHandler = textChangeHandler
     }
 
     private func createLayout() {
