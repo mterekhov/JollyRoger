@@ -122,13 +122,13 @@ class JROpportunitiesListVC: UIViewController, UITableViewDataSource, UITableVie
             let searchResult = await opportunitiesService.findOpportunity(uuid: opportunityValue.uuid)
             switch searchResult {
             case .success(let foundOpportunity):
-                await updateOpportunity(foundOpportunity)
+                await updateOpportunity(opportunityValue)
             case .failure(let error):
                 if error == .opportunityNotFound {
                     let newOpportunityResult = await opportunitiesService.createNewOpportunity()
                     switch newOpportunityResult {
                     case .success(let newOpportunity):
-                        await updateOpportunity(newOpportunity)
+                        await updateOpportunity(JROpportunity(uuid: newOpportunity.uuid, opportunity: opportunityValue))
                     case .failure(let error):
                         showErrorLabel(error)
                     }

@@ -26,4 +26,8 @@ extension UIColor {
         return UIColor(hex: 0xE0E0E0)
     }
     
+    static func pirateAlphaBlack() -> UIColor {
+        return .black.withAlphaComponent(0.7)
+    }
+    
 }

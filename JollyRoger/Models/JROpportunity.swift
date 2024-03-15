@@ -30,6 +30,41 @@ enum EOpportunityStatus: Int {
 }
 
 struct JROpportunity {
+    
+    init(uuid: String, opportunity: JROpportunity) {
+        self.uuid = uuid
+        self.positionTitle = opportunity.positionTitle
+        self.companyName = opportunity.companyName
+        self.date = opportunity.date
+        self.contactName = opportunity.contactName
+        self.contactPoint = opportunity.contactPoint
+        self.notes = opportunity.notes
+        self.remoteStatus = opportunity.remoteStatus
+        self.salary = opportunity.salary
+        self.status = opportunity.status
+    }
+    
+    init(uuid: String, 
+         positionTitle: String,
+         companyName: String,
+         date: Date,
+         contactName: String,
+         contactPoint: String,
+         notes: String,
+         remoteStatus: String,
+         salary: String,
+         status: EOpportunityStatus) {
+        self.uuid = uuid
+        self.positionTitle = positionTitle
+        self.companyName = companyName
+        self.date = date
+        self.contactName = contactName
+        self.contactPoint = contactPoint
+        self.notes = notes
+        self.remoteStatus = remoteStatus
+        self.salary = salary
+        self.status = status
+    }
 
     var uuid = ""
     var positionTitle = ""

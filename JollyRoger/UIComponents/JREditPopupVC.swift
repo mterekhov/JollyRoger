@@ -53,19 +53,6 @@ class JREditPopupVC: UIViewController {
     private var okBlock:OkHandler?
     private var cancelBlock:CancelHandler?
 
-    init(initialValue: String, title: String, okBlock: @escaping OkHandler, cancelBlock: @escaping CancelHandler) {
-        self.valueTextField.textField.text = initialValue
-        self.titleLabel.text = title
-        self.okBlock = okBlock
-        self.cancelBlock = cancelBlock
-        
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     override func loadView() {
         super.loadView()
         
@@ -80,12 +67,18 @@ class JREditPopupVC: UIViewController {
                                                object: nil)
     }
     
+    func configure(initialValue: String, title: String, okBlock: @escaping OkHandler, cancelBlock: @escaping CancelHandler) {
+        self.valueTextField.textField.text = initialValue
+        self.titleLabel.text = title
+        self.okBlock = okBlock
+        self.cancelBlock = cancelBlock
+    }
+    
     // MARK: - Routine -
     
     private func createLayout() {
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .black
-        view.layer.opacity = BackgroundOpacity
+        view.backgroundColor = .pirateAlphaBlack()
 
         messageBoard.translatesAutoresizingMaskIntoConstraints = false
         messageBoard.layer.cornerRadius = BoardCornerRadius
