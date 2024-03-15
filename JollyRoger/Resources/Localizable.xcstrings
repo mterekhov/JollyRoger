@@ -12,6 +12,17 @@
         }
       }
     },
+    "CloseButtonTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "close"
+          }
+        }
+      }
+    },
     "JROpportunitiesListVC.EmptyList" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -63,6 +74,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Opportunity was not found"
+          }
+        }
+      }
+    },
+    "SaveButtonTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "save"
           }
         }
       }

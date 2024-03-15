@@ -33,6 +33,7 @@
 		DE32EB422BA3A0990010A3F0 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE32EB412BA3A0990010A3F0 /* UIViewController+Extension.swift */; };
 		DE32EB442BA463870010A3F0 /* JRStatusPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE32EB432BA463870010A3F0 /* JRStatusPickerVC.swift */; };
 		DE32EB462BA473550010A3F0 /* JRDatePickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE32EB452BA473550010A3F0 /* JRDatePickerVC.swift */; };
+		DE32EB482BA4F5850010A3F0 /* JRButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE32EB472BA4F5850010A3F0 /* JRButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +65,7 @@
 		DE32EB412BA3A0990010A3F0 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		DE32EB432BA463870010A3F0 /* JRStatusPickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JRStatusPickerVC.swift; sourceTree = "<group>"; };
 		DE32EB452BA473550010A3F0 /* JRDatePickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JRDatePickerVC.swift; sourceTree = "<group>"; };
+		DE32EB472BA4F5850010A3F0 /* JRButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JRButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +156,7 @@
 				DE32EB3B2BA39BE70010A3F0 /* JREditPopupVC.swift */,
 				DE32EB432BA463870010A3F0 /* JRStatusPickerVC.swift */,
 				DE32EB452BA473550010A3F0 /* JRDatePickerVC.swift */,
+				DE32EB472BA4F5850010A3F0 /* JRButton.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -275,6 +278,7 @@
 				DE32EB042BA1BCF10010A3F0 /* SceneDelegate.swift in Sources */,
 				DE32EB352BA233DA0010A3F0 /* JREditOpportunityVC.swift in Sources */,
 				DE32EB2A2BA1C9350010A3F0 /* JROpportunityCell.swift in Sources */,
+				DE32EB482BA4F5850010A3F0 /* JRButton.swift in Sources */,
 				DE32EB242BA1C7E40010A3F0 /* String+Extension.swift in Sources */,
 				DE32EB202BA1C5E60010A3F0 /* JROpportunity.swift in Sources */,
 			);

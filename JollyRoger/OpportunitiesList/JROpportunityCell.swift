@@ -35,8 +35,7 @@ class JROpportunityCell: UITableViewCell {
     public func configureCell(_ newOpportunity: JROpportunity) {
         positionTitleLabel.text = newOpportunity.positionTitle
         dateLabel.text = DateFormatter.jollyroger_dateFormatter().string(from: newOpportunity.date)
-        companyNameLabel.text = ">>> "
-        companyNameLabel.text?.append(newOpportunity.companyName)
+        companyNameLabel.text = newOpportunity.companyName
         
         salaryLabel.text = newOpportunity.salary
         

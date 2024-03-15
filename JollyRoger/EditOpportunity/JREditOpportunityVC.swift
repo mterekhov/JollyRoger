@@ -38,6 +38,10 @@ protocol JREditOpportunityDelegate: AnyObject {
 
 class JREditOpportunityVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
+    private let TopButtonFontSize: CGFloat = 12
+    private let TopButtonWidth: CGFloat = 60
+    private let TopButtonHeight: CGFloat = 32
+
     private let CloseButtonLeftOffset: CGFloat = 25
 
     private var opportunity: JROpportunity
@@ -257,16 +261,16 @@ class JREditOpportunityVC: UIViewController, UITableViewDataSource, UITableViewD
         tableView.rowHeight = UITableView.automaticDimension
         view.addSubview(tableView)
         
-        let closeButton = UIButton(type: .close)
+        let closeButton = JRButton(frame: .zero, buttonHeight: TopButtonHeight, target: self, action: #selector(closeButtonTapped))
+        closeButton.font = .etelka(TopButtonFontSize)
         closeButton.translatesAutoresizingMaskIntoConstraints = false
-        closeButton.backgroundColor = .white
-        closeButton.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
+        closeButton.title = "CloseButtonTitle".local
         view.addSubview(closeButton)
 
-        let saveButton = UIButton(type: .contactAdd)
+        let saveButton = JRButton(frame: .zero, buttonHeight: TopButtonHeight, target: self, action: #selector(saveButtonTapped))
+        saveButton.font = .etelka(TopButtonFontSize)
         saveButton.translatesAutoresizingMaskIntoConstraints = false
-        saveButton.backgroundColor = .white
-        saveButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
+        saveButton.title = "SaveButtonTitle".local
         view.addSubview(saveButton)
 
         NSLayoutConstraint.activate([
@@ -277,9 +281,13 @@ class JREditOpportunityVC: UIViewController, UITableViewDataSource, UITableViewD
 
             closeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             closeButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -CloseButtonLeftOffset),
+            closeButton.widthAnchor.constraint(equalToConstant: TopButtonWidth),
+            closeButton.heightAnchor.constraint(equalToConstant: TopButtonHeight),
 
             saveButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             saveButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: CloseButtonLeftOffset),
+            saveButton.widthAnchor.constraint(equalToConstant: TopButtonWidth),
+            saveButton.heightAnchor.constraint(equalToConstant: TopButtonHeight)
         ])
     }
     
