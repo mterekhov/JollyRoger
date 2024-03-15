@@ -215,7 +215,16 @@ class JREditOpportunityVC: UIViewController, UITableViewDataSource, UITableViewD
                 self.opportunity.status = newStatus
             }
             jollyroger_presentModal(viewControllerToPresent: statusPickerVC)
-//        case .date:
+        case .date:
+            let datePickerVC = JRDatePickerVC(initialDate: opportunity.date)
+            datePickerVC.doneButtonHandler = {
+                datePickerVC.jollyroger_dismissModal()
+                self.tableView.reloadData()
+            }
+            datePickerVC.dateChangedHandler = { newDate in
+                self.opportunity.date = newDate
+            }
+            jollyroger_presentModal(viewControllerToPresent: datePickerVC)
         default:
             break
         }

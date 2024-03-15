@@ -32,6 +32,7 @@
 		DE32EB402BA3A00A0010A3F0 /* JRTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE32EB3F2BA3A00A0010A3F0 /* JRTextField.swift */; };
 		DE32EB422BA3A0990010A3F0 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE32EB412BA3A0990010A3F0 /* UIViewController+Extension.swift */; };
 		DE32EB442BA463870010A3F0 /* JRStatusPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE32EB432BA463870010A3F0 /* JRStatusPickerVC.swift */; };
+		DE32EB462BA473550010A3F0 /* JRDatePickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE32EB452BA473550010A3F0 /* JRDatePickerVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +63,7 @@
 		DE32EB3F2BA3A00A0010A3F0 /* JRTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JRTextField.swift; sourceTree = "<group>"; };
 		DE32EB412BA3A0990010A3F0 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		DE32EB432BA463870010A3F0 /* JRStatusPickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JRStatusPickerVC.swift; sourceTree = "<group>"; };
+		DE32EB452BA473550010A3F0 /* JRDatePickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JRDatePickerVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +153,7 @@
 				DE32EB3F2BA3A00A0010A3F0 /* JRTextField.swift */,
 				DE32EB3B2BA39BE70010A3F0 /* JREditPopupVC.swift */,
 				DE32EB432BA463870010A3F0 /* JRStatusPickerVC.swift */,
+				DE32EB452BA473550010A3F0 /* JRDatePickerVC.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -266,6 +269,7 @@
 				DE32EB062BA1BCF10010A3F0 /* JROpportunitiesListVC.swift in Sources */,
 				DE32EB022BA1BCF10010A3F0 /* AppDelegate.swift in Sources */,
 				DE32EB402BA3A00A0010A3F0 /* JRTextField.swift in Sources */,
+				DE32EB462BA473550010A3F0 /* JRDatePickerVC.swift in Sources */,
 				DE32EB442BA463870010A3F0 /* JRStatusPickerVC.swift in Sources */,
 				DE32EB322BA21DF10010A3F0 /* DateFormatter+Extension.swift in Sources */,
 				DE32EB042BA1BCF10010A3F0 /* SceneDelegate.swift in Sources */,

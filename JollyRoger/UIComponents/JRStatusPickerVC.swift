@@ -22,9 +22,9 @@ class JRStatusPickerVC: UIViewController, UIPickerViewDelegate, UIPickerViewData
     private let DoneButtonCornerRadius:CGFloat = 40
     private let SpaceBetween:CGFloat = 20
     
-    private let periodPickerView = UIPickerView(frame: .zero)
     private let titleLabel = UILabel(frame: .zero)
-    
+    private let pickerView = UIPickerView(frame: .zero)
+
     private let initialValue: Int
     private let limit: Int
     
@@ -55,11 +55,6 @@ class JRStatusPickerVC: UIViewController, UIPickerViewDelegate, UIPickerViewData
     private func createLayout() {
         view.backgroundColor = .pirateAlphaBlack()
         
-        periodPickerView.dataSource = self
-        periodPickerView.delegate = self
-        periodPickerView.translatesAutoresizingMaskIntoConstraints = false
-        periodPickerView.selectRow(Int(initialValue), inComponent: 0, animated: false)
-        
         let viewContainer = UIView(frame: .zero)
         viewContainer.translatesAutoresizingMaskIntoConstraints = false
         viewContainer.backgroundColor = .white
@@ -77,11 +72,11 @@ class JRStatusPickerVC: UIViewController, UIPickerViewDelegate, UIPickerViewData
         titleLabel.font = .etelka(HeaderTitleFontSize)
         titleLabel.textAlignment = .center
         
-        let pickerView = UIPickerView(frame: .zero)
         pickerView.delegate = self
         pickerView.dataSource = self
         pickerView.translatesAutoresizingMaskIntoConstraints = false
-        
+        pickerView.selectRow(Int(initialValue), inComponent: 0, animated: false)
+
         viewContainer.addSubview(pickerView)
         viewContainer.addSubview(doneButton)
         viewContainer.addSubview(titleLabel)
@@ -117,10 +112,18 @@ class JRStatusPickerVC: UIViewController, UIPickerViewDelegate, UIPickerViewData
         ])
     }
     
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        pickerView.selectRow(Int(initialValue), inComponent: 0, animated: true)
+//        pickerView.reloadAllComponents()
+//
+//    }
+    
     // MARK: - Handler -
     
     @objc
     private func doneButtonTapped(_ button: UIButton) {
+        statusChangedHandler?(EOpportunityStatus(rawValue: pickerView.selectedRow(inComponent: 0)) ?? .inProgress)
         doneButtonHandler?()
     }
     
