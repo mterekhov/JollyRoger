@@ -134,7 +134,6 @@ class JREditOpportunityVC: UIViewController, UITableViewDataSource, UITableViewD
                 self.jollyroger_presentModal(viewControllerToPresent: datePickerVC)
             }
             return expCell
-//            newCell.configureCell("Position", opportunity.positionTitle)
         case .companyName:
             newCell.configureCell("Company", opportunity.companyName)
         case .contactName:
@@ -188,16 +187,6 @@ class JREditOpportunityVC: UIViewController, UITableViewDataSource, UITableViewD
             editVC.jollyroger_dismissModal()
         }
         switch field {
-//        case .positionTitle:
-//            editVC.configure(initialValue: opportunity.positionTitle,
-//                             title: "Edit",
-//                             okBlock: { newText in
-//                self.opportunity.positionTitle = newText
-//                self.tableView.reloadData()
-//                editVC.jollyroger_dismissModal()
-//            },
-//                             cancelBlock: cancelBlock)
-//            jollyroger_presentModal(viewControllerToPresent: editVC)
         case .companyName:
             editVC.configure(initialValue: opportunity.companyName,
                              title: "Edit",
@@ -248,36 +237,6 @@ class JREditOpportunityVC: UIViewController, UITableViewDataSource, UITableViewD
             },
                              cancelBlock: cancelBlock)
             jollyroger_presentModal(viewControllerToPresent: editVC)
-//        case .salary:
-//            editVC.configure(initialValue: opportunity.salary,
-//                             title: "Edit",
-//                             okBlock: { newText in
-//                self.opportunity.salary = newText
-//                self.tableView.reloadData()
-//                editVC.jollyroger_dismissModal()
-//            },
-//                             cancelBlock: cancelBlock)
-//            jollyroger_presentModal(viewControllerToPresent: editVC)
-//        case .status:
-//            let statusPickerVC = JRStatusPickerVC(title: "Status".local, limit: 4, initialValue: opportunity.status.rawValue)
-//            statusPickerVC.doneButtonHandler = {
-//                statusPickerVC.jollyroger_dismissModal()
-//                self.tableView.reloadData()
-//            }
-//            statusPickerVC.statusChangedHandler = { newStatus in
-//                self.opportunity.status = newStatus
-//            }
-//            jollyroger_presentModal(viewControllerToPresent: statusPickerVC)
-//        case .date:
-//            let datePickerVC = JRDatePickerVC(initialDate: opportunity.date)
-//            datePickerVC.doneButtonHandler = {
-//                datePickerVC.jollyroger_dismissModal()
-//                self.tableView.reloadData()
-//            }
-//            datePickerVC.dateChangedHandler = { newDate in
-//                self.opportunity.date = newDate
-//            }
-//            jollyroger_presentModal(viewControllerToPresent: datePickerVC)
         default:
             break
         }

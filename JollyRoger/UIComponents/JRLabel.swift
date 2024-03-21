@@ -59,8 +59,9 @@ class JRLabel: UIView {
         }
     }
     
-    init(_ bgColor: UIColor, _ cornerRadius: CGFloat) {
+    init(_ bgColor: UIColor = .clear, _ cornerRadius: CGFloat = 0) {
         super.init(frame: .zero)
+        
         backgroundColor = bgColor
         layer.cornerRadius = cornerRadius
         translatesAutoresizingMaskIntoConstraints = false
