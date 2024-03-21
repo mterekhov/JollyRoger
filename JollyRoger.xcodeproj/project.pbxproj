@@ -34,6 +34,7 @@
 		DE32EB442BA463870010A3F0 /* JRStatusPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE32EB432BA463870010A3F0 /* JRStatusPickerVC.swift */; };
 		DE32EB462BA473550010A3F0 /* JRDatePickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE32EB452BA473550010A3F0 /* JRDatePickerVC.swift */; };
 		DE32EB482BA4F5850010A3F0 /* JRButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE32EB472BA4F5850010A3F0 /* JRButton.swift */; };
+		DE32EB4A2BA4FA500010A3F0 /* JRCommonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE32EB492BA4FA500010A3F0 /* JRCommonCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +67,7 @@
 		DE32EB432BA463870010A3F0 /* JRStatusPickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JRStatusPickerVC.swift; sourceTree = "<group>"; };
 		DE32EB452BA473550010A3F0 /* JRDatePickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JRDatePickerVC.swift; sourceTree = "<group>"; };
 		DE32EB472BA4F5850010A3F0 /* JRButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JRButton.swift; sourceTree = "<group>"; };
+		DE32EB492BA4FA500010A3F0 /* JRCommonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JRCommonCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +167,7 @@
 			isa = PBXGroup;
 			children = (
 				DE32EB342BA233DA0010A3F0 /* JREditOpportunityVC.swift */,
+				DE32EB492BA4FA500010A3F0 /* JRCommonCell.swift */,
 				DE32EB392BA235E80010A3F0 /* JREditFieldCell.swift */,
 			);
 			path = EditOpportunity;
@@ -260,6 +263,7 @@
 			files = (
 				DE32EB2C2BA21C670010A3F0 /* JRLabel.swift in Sources */,
 				DE32EB3E2BA39D2B0010A3F0 /* Color+Extension.swift in Sources */,
+				DE32EB4A2BA4FA500010A3F0 /* JRCommonCell.swift in Sources */,
 				DE32EB0C2BA1BCF10010A3F0 /* JollyRoger.xcdatamodeld in Sources */,
 				DE32EB1D2BA1C55F0010A3F0 /* JROpportunitiesService.swift in Sources */,
 				DE32EB1B2BA1C2AB0010A3F0 /* NSManagedObjectContext+Extension.swift in Sources */,

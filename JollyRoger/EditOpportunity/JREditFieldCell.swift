@@ -47,11 +47,11 @@ class JREditFieldCell: UITableViewCell {
         NSLayoutConstraint.activate([
             valueTitleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: CommonSideOffset),
             valueTitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: CommonSideOffset),
-            valueTitleLabel.trailingAnchor.constraint(equalTo: fieldValueLabel.leadingAnchor),
-            valueTitleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -CommonSideOffset),
+            valueTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
 
-            fieldValueLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: CommonSideOffset),
+            fieldValueLabel.topAnchor.constraint(equalTo: valueTitleLabel.bottomAnchor, constant: CommonSideOffset),
             fieldValueLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -CommonSideOffset),
+            fieldValueLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 4 * CommonSideOffset),
             fieldValueLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -CommonSideOffset),
         ])
     }

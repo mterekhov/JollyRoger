@@ -19,12 +19,9 @@ enum EOpportunityField: Int {
     case companyName
     case contactName
     case contactPoint
-    case notes
     case remoteStatus
-    case salary
-    case date
-    case status
-    
+    case notes
+
     case size
     
 }
@@ -38,6 +35,7 @@ protocol JREditOpportunityDelegate: AnyObject {
 
 class JREditOpportunityVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
+    private let PositionFontSize: CGFloat = 24
     private let TopButtonFontSize: CGFloat = 12
     private let TopButtonWidth: CGFloat = 60
     private let TopButtonHeight: CGFloat = 32
@@ -47,6 +45,7 @@ class JREditOpportunityVC: UIViewController, UITableViewDataSource, UITableViewD
     private var opportunity: JROpportunity
     
     private let tableView = UITableView(frame: .zero, style: .grouped)
+    private let positionTitleLabel = UILabel(frame: .zero)
     
     weak var delegate: JREditOpportunityDelegate?
 
@@ -78,29 +77,74 @@ class JREditOpportunityVC: UIViewController, UITableViewDataSource, UITableViewD
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let newCell = JREditFieldCell(frame: .zero)
-        newCell.selectionStyle = .none
         newCell.backgroundColor = .cyan
         
         let field = EOpportunityField(rawValue: indexPath.row)
         switch field {
         case .positionTitle:
-            newCell.configureCell("Position", opportunity.positionTitle)
+            let expCell = JRCommonCell(frame: .zero)
+            expCell.selectionStyle = .none
+            expCell.configureCell(opportunity)
+            expCell.editSalaryBlock = {
+                let editVC = JREditPopupVC()
+                let cancelBlock: CancelHandler = {
+                    self.tableView.reloadData()
+                    editVC.jollyroger_dismissModal()
+                }
+                editVC.configure(initialValue: self.opportunity.salary,
+                                 title: "Edit",
+                                 okBlock: { newText in
+                    self.opportunity.salary = newText
+                    self.tableView.reloadData()
+                    editVC.jollyroger_dismissModal()
+                },
+                                 cancelBlock: cancelBlock)
+                self.jollyroger_presentModal(viewControllerToPresent: editVC)
+            }
+            expCell.editStatusBlock = {
+                let editVC = JREditPopupVC()
+                let cancelBlock: CancelHandler = {
+                    self.tableView.reloadData()
+                    editVC.jollyroger_dismissModal()
+                }
+                let statusPickerVC = JRStatusPickerVC(title: "Status".local, limit: 4, initialValue: self.opportunity.status.rawValue)
+                statusPickerVC.doneButtonHandler = {
+                    statusPickerVC.jollyroger_dismissModal()
+                    self.tableView.reloadData()
+                }
+                statusPickerVC.statusChangedHandler = { newStatus in
+                    self.opportunity.status = newStatus
+                }
+                self.jollyroger_presentModal(viewControllerToPresent: statusPickerVC)
+            }
+            expCell.editDateBlock = {
+                let editVC = JREditPopupVC()
+                let cancelBlock: CancelHandler = {
+                    self.tableView.reloadData()
+                    editVC.jollyroger_dismissModal()
+                }
+                let datePickerVC = JRDatePickerVC(initialDate: self.opportunity.date)
+                datePickerVC.doneButtonHandler = {
+                    datePickerVC.jollyroger_dismissModal()
+                    self.tableView.reloadData()
+                }
+                datePickerVC.dateChangedHandler = { newDate in
+                    self.opportunity.date = newDate
+                }
+                self.jollyroger_presentModal(viewControllerToPresent: datePickerVC)
+            }
+            return expCell
+//            newCell.configureCell("Position", opportunity.positionTitle)
         case .companyName:
             newCell.configureCell("Company", opportunity.companyName)
         case .contactName:
             newCell.configureCell("Contact", opportunity.contactName)
         case .contactPoint:
             newCell.configureCell("Contact point", opportunity.contactPoint)
-        case .notes:
-            newCell.configureCell("Notes", opportunity.notes)
         case .remoteStatus:
             newCell.configureCell("Remote", opportunity.remoteStatus)
-        case .salary:
-            newCell.configureCell("Salary", opportunity.salary)
-        case .date:
-            newCell.configureCell("Date", DateFormatter.jollyroger_dateFormatter().string(from: opportunity.date))
-        case .status:
-            newCell.configureCell("Status", opportunity.status.title)
+        case .notes:
+            newCell.configureCell("Notes", opportunity.notes)
         default:
             break
         }
@@ -125,7 +169,12 @@ class JREditOpportunityVC: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
+        switch indexPath.row {
+        case EOpportunityField.notes.rawValue:
+            return UITableView.automaticDimension
+        default:
+            return 60
+        }
     }
 
     // MARK: - UITableViewDelegate -
@@ -139,16 +188,16 @@ class JREditOpportunityVC: UIViewController, UITableViewDataSource, UITableViewD
             editVC.jollyroger_dismissModal()
         }
         switch field {
-        case .positionTitle:
-            editVC.configure(initialValue: opportunity.positionTitle,
-                             title: "Edit",
-                             okBlock: { newText in
-                self.opportunity.positionTitle = newText
-                self.tableView.reloadData()
-                editVC.jollyroger_dismissModal()
-            },
-                             cancelBlock: cancelBlock)
-            jollyroger_presentModal(viewControllerToPresent: editVC)
+//        case .positionTitle:
+//            editVC.configure(initialValue: opportunity.positionTitle,
+//                             title: "Edit",
+//                             okBlock: { newText in
+//                self.opportunity.positionTitle = newText
+//                self.tableView.reloadData()
+//                editVC.jollyroger_dismissModal()
+//            },
+//                             cancelBlock: cancelBlock)
+//            jollyroger_presentModal(viewControllerToPresent: editVC)
         case .companyName:
             editVC.configure(initialValue: opportunity.companyName,
                              title: "Edit",
@@ -189,16 +238,6 @@ class JREditOpportunityVC: UIViewController, UITableViewDataSource, UITableViewD
             },
                              cancelBlock: cancelBlock)
             jollyroger_presentModal(viewControllerToPresent: editVC)
-        case .salary:
-            editVC.configure(initialValue: opportunity.salary,
-                             title: "Edit",
-                             okBlock: { newText in
-                self.opportunity.salary = newText
-                self.tableView.reloadData()
-                editVC.jollyroger_dismissModal()
-            },
-                             cancelBlock: cancelBlock)
-            jollyroger_presentModal(viewControllerToPresent: editVC)
         case .remoteStatus:
             editVC.configure(initialValue: opportunity.remoteStatus,
                              title: "Edit",
@@ -209,26 +248,36 @@ class JREditOpportunityVC: UIViewController, UITableViewDataSource, UITableViewD
             },
                              cancelBlock: cancelBlock)
             jollyroger_presentModal(viewControllerToPresent: editVC)
-        case .status:
-            let statusPickerVC = JRStatusPickerVC(title: "Status".local, limit: 4, initialValue: opportunity.status.rawValue)
-            statusPickerVC.doneButtonHandler = {
-                statusPickerVC.jollyroger_dismissModal()
-                self.tableView.reloadData()
-            }
-            statusPickerVC.statusChangedHandler = { newStatus in
-                self.opportunity.status = newStatus
-            }
-            jollyroger_presentModal(viewControllerToPresent: statusPickerVC)
-        case .date:
-            let datePickerVC = JRDatePickerVC(initialDate: opportunity.date)
-            datePickerVC.doneButtonHandler = {
-                datePickerVC.jollyroger_dismissModal()
-                self.tableView.reloadData()
-            }
-            datePickerVC.dateChangedHandler = { newDate in
-                self.opportunity.date = newDate
-            }
-            jollyroger_presentModal(viewControllerToPresent: datePickerVC)
+//        case .salary:
+//            editVC.configure(initialValue: opportunity.salary,
+//                             title: "Edit",
+//                             okBlock: { newText in
+//                self.opportunity.salary = newText
+//                self.tableView.reloadData()
+//                editVC.jollyroger_dismissModal()
+//            },
+//                             cancelBlock: cancelBlock)
+//            jollyroger_presentModal(viewControllerToPresent: editVC)
+//        case .status:
+//            let statusPickerVC = JRStatusPickerVC(title: "Status".local, limit: 4, initialValue: opportunity.status.rawValue)
+//            statusPickerVC.doneButtonHandler = {
+//                statusPickerVC.jollyroger_dismissModal()
+//                self.tableView.reloadData()
+//            }
+//            statusPickerVC.statusChangedHandler = { newStatus in
+//                self.opportunity.status = newStatus
+//            }
+//            jollyroger_presentModal(viewControllerToPresent: statusPickerVC)
+//        case .date:
+//            let datePickerVC = JRDatePickerVC(initialDate: opportunity.date)
+//            datePickerVC.doneButtonHandler = {
+//                datePickerVC.jollyroger_dismissModal()
+//                self.tableView.reloadData()
+//            }
+//            datePickerVC.dateChangedHandler = { newDate in
+//                self.opportunity.date = newDate
+//            }
+//            jollyroger_presentModal(viewControllerToPresent: datePickerVC)
         default:
             break
         }
@@ -251,6 +300,11 @@ class JREditOpportunityVC: UIViewController, UITableViewDataSource, UITableViewD
     private func createLayout() {
         view.backgroundColor = .white
         
+        positionTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        positionTitleLabel.font = .etelka(PositionFontSize)
+        positionTitleLabel.text = opportunity.positionTitle
+        view.addSubview(positionTitleLabel)
+
         tableView.backgroundColor = .clear
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.delegate = self
@@ -258,7 +312,6 @@ class JREditOpportunityVC: UIViewController, UITableViewDataSource, UITableViewD
         tableView.showsVerticalScrollIndicator = false
         tableView.showsHorizontalScrollIndicator = false
         tableView.separatorStyle = .none
-        tableView.rowHeight = UITableView.automaticDimension
         view.addSubview(tableView)
         
         let closeButton = JRButton(frame: .zero, buttonHeight: TopButtonHeight, target: self, action: #selector(closeButtonTapped))
@@ -274,7 +327,10 @@ class JREditOpportunityVC: UIViewController, UITableViewDataSource, UITableViewD
         view.addSubview(saveButton)
 
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: closeButton.bottomAnchor, constant: CloseButtonLeftOffset),
+            positionTitleLabel.topAnchor.constraint(equalTo: closeButton.bottomAnchor, constant: CloseButtonLeftOffset),
+            positionTitleLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: CloseButtonLeftOffset),
+
+            tableView.topAnchor.constraint(equalTo: positionTitleLabel.bottomAnchor, constant: CloseButtonLeftOffset),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
