@@ -64,14 +64,19 @@ class JRCommonCell: UITableViewCell {
         var tapGesture = UITapGestureRecognizer(target: self, action: #selector(editSalaryTapped))
         tapGesture.cancelsTouchesInView = true
         salaryLabel.addGestureRecognizer(tapGesture)
-        
+        contentView.addSubview(salaryLabel)
+
         statusLabel.font = .etelka(FontSize)
         statusLabel.translatesAutoresizingMaskIntoConstraints = false
         statusLabel.textAlignment = .center
-        contentView.addSubview(statusLabel)
+
+        let labelContainer = UIView(frame: .zero)
+        labelContainer.translatesAutoresizingMaskIntoConstraints = false
+        labelContainer.addSubview(statusLabel)
         tapGesture = UITapGestureRecognizer(target: self, action: #selector(editStatusTapped))
         tapGesture.cancelsTouchesInView = true
-        statusLabel.addGestureRecognizer(tapGesture)
+        labelContainer.addGestureRecognizer(tapGesture)
+        contentView.addSubview(labelContainer)
 
         dateLabel.font = .etelka(FontSize)
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -89,10 +94,15 @@ class JRCommonCell: UITableViewCell {
             salaryLabel.trailingAnchor.constraint(equalTo: statusLabel.leadingAnchor),
             salaryLabel.widthAnchor.constraint(equalToConstant: width),
 
-            statusLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
-            statusLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            statusLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            statusLabel.widthAnchor.constraint(equalToConstant: width),
+            statusLabel.topAnchor.constraint(equalTo: labelContainer.topAnchor),
+            statusLabel.bottomAnchor.constraint(equalTo: labelContainer.bottomAnchor),
+            statusLabel.leadingAnchor.constraint(equalTo: labelContainer.leadingAnchor),
+            statusLabel.trailingAnchor.constraint(equalTo: labelContainer.trailingAnchor),
+
+            labelContainer.topAnchor.constraint(equalTo: contentView.topAnchor),
+            labelContainer.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            labelContainer.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            labelContainer.widthAnchor.constraint(equalToConstant: width),
 
             dateLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
             dateLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
