@@ -45,7 +45,7 @@ class JREditOpportunityVC: UIViewController, UITableViewDataSource, UITableViewD
     private var opportunity: JROpportunity
     
     private let tableView = UITableView(frame: .zero, style: .grouped)
-    private let positionTitleLabel = UILabel(frame: .zero)
+    private let positionTitleLabel = JRLabel()
     
     weak var delegate: JREditOpportunityDelegate?
 
@@ -254,6 +254,21 @@ class JREditOpportunityVC: UIViewController, UITableViewDataSource, UITableViewD
         delegate?.saveOpportunity(opportunity)
     }
 
+
+    @objc
+    private func titleTappedTapped() {
+        let editVC = JREditPopupVC()
+        editVC.configure(initialValue: opportunity.positionTitle,
+                         title: "Edit") { newText in
+            self.opportunity.positionTitle = newText
+            self.positionTitleLabel.text = self.opportunity.positionTitle
+            editVC.jollyroger_dismissModal()
+        } cancelBlock: {
+            editVC.jollyroger_dismissModal()
+        }
+        jollyroger_presentModal(viewControllerToPresent: editVC)
+    }
+
     // MARK: - Routine -
     
     private func createLayout() {
@@ -262,6 +277,8 @@ class JREditOpportunityVC: UIViewController, UITableViewDataSource, UITableViewD
         positionTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         positionTitleLabel.font = .etelka(PositionFontSize)
         positionTitleLabel.text = opportunity.positionTitle
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(titleTappedTapped))
+        positionTitleLabel.addGestureRecognizer(tapGesture)
         view.addSubview(positionTitleLabel)
 
         tableView.backgroundColor = .clear
