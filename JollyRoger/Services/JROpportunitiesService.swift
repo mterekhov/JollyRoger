@@ -147,7 +147,10 @@ class JROpportunitiesService: JROpportunitiesServiceProtocol {
         
         await localContext.perform {
             do {
-                guard let opportunitiesList = try localContext.fetch(NSFetchRequest<NSFetchRequestResult>(entityName: JROpportunityCD.entity().name ?? "")) as? [JROpportunityCD] else {
+                let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: JROpportunityCD.entity().name ?? "")
+                fetchRequest.sortDescriptors = [NSSortDescriptor(key: "status", ascending: true)]
+
+                guard let opportunitiesList = try localContext.fetch(fetchRequest) as? [JROpportunityCD] else {
                     result = .failure(.coreDataError)
                     return
                 }
